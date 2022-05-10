@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bootstrap": "4.6",
+    "jquery-ui": "^1.13.1",
+    "jquery-validation": "^1.19.3"
+  }
+}
