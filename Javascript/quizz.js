@@ -28,7 +28,7 @@ let score = 0;
   
   }); */
 
-
+$("#accordion").accordion();
 $("#formulaire").validate(
     {
         onfocusout: false,
