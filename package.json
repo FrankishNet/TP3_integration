@@ -3,5 +3,23 @@
     "bootstrap": "4.6",
     "jquery-ui": "^1.13.1",
     "jquery-validation": "^1.19.3"
-  }
+  },
+  "name": "tp3_integration",
+  "description": "TP3 intégration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ravencypher/TP3_integration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ravencypher/TP3_integration/issues"
+  },
+  "homepage": "https://github.com/Ravencypher/TP3_integration#readme"
 }
