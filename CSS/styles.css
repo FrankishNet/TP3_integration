@@ -9962,52 +9962,12 @@ header h1 {
 
 /*# sourceMappingURL=styles.css.map */
 
-/* VIA LE CODEPEN */
-
-body {
-	font-family: 'Fjalla One', Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	background: url(http://sf.co.ua/14/01/wallpaper-363993.jpg);
-}
-
-.content-quiz {
-	background-color: #eee;
-	width: 75%;
-	max-width: 800px;
-	min-height: 170px;
-	box-shadow: 5px 5px 9px #333;
-}
+/* A METTRE DANS LE SCSS */
 
 #accordion {
-    display: none;
-	  margin-top: 50px;
-	  font-size: x-large;
+  display: none;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
-	  font-size: smaller;
-}
-
-input[type="radio"] {
-	margin-right: 15px;
-}
-
-button {
-	position: relative;
-  float:right;
-	margin-left: 5px;
-	margin-top: 15px;
-}
-
-/* #button-debut {
-    display:none;
-    width: 90px;
-} */
-
-#warning {
-	color: #800000;
-	font-weight: bold;
-	margin-top: 25px;
+#message {
+display: none;
 }

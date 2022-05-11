@@ -11,7 +11,7 @@ let questions = `[{
 		"rendus", 
 		"rendue"
 		], 
-		"reponse":0
+		"reponseCorrecte":0
 	},
 	{
 		"question":"Quel verbe s'écrit avec un t à l'indicatif présent, à la 3e personne du singulier ?",
@@ -23,7 +23,7 @@ let questions = `[{
             "Regarder",
             "Voir"
 		], 
-		"reponse":4
+		"reponseCorrecte":4
 	},
     {
 		"question":"Avec quelle forme verbale compléter cette phrase à l'indicatif futur ?",
@@ -33,7 +33,7 @@ let questions = `[{
 			"Reviendrons", 
 			"Reviendront"
 		], 
-		"reponse":2
+		"reponseCorrecte":2
 	},
     {
 		"question":"Avec quelle forme verbale au subjonctif présent compléter cette phrase ? ",
@@ -43,7 +43,7 @@ let questions = `[{
 			"Ayions", 
 			"Ayons eu"
 		], 
-		"reponse":0
+		"reponseCorrecte":0
 	},{
 		"question":"Parmi ces verbes, lequel n'est pas au passé simple ?",
         "phrase":"",
@@ -54,7 +54,7 @@ let questions = `[{
             "tu partais",
             "elles passèrent"
 		], 
-		"reponse":3
+		"reponseCorrecte":3
 	},{
 		"question":"À quel temps de l'indicatif le verbe est-il conjugué ?",
         "phrase":"Il a rajeuni de dix ans.",
@@ -63,7 +63,7 @@ let questions = `[{
 			"imparfait", 
 			"passé composé"
 		], 
-		"reponse":2
+		"reponseCorrecte":2
 	},{
 		"question":"Dans cette liste d’expressions, laquelle ne constitue pas un pléonasme ?",
         "phrase":"",
@@ -74,7 +74,7 @@ let questions = `[{
             "Célébrer un anniversaire",
             "Pondre un oeuf"
 		], 
-		"reponse":3
+		"reponseCorrecte":3
 	},{
 		"question":"Dans cette liste de noms, un seul est féminin : lequel ?",
         "phrase":"",
@@ -86,7 +86,7 @@ let questions = `[{
             "Hémisphère",
             "Intervalle"
 		], 
-		"reponse":1
+		"reponseCorrecte":1
 	},{
 		"question":"Dans cette liste de noms, un seul est masculin : lequel ?",
         "phrase":"",
@@ -98,7 +98,7 @@ let questions = `[{
             "Interview",
             "Stalactite"
 		], 
-		"reponse":0
+		"reponseCorrecte":0
 	},{
 		"question":"Tous ces adjectifs doublent leur n final au féminin, sauf un : lequel ?",
         "phrase":"",
@@ -108,7 +108,7 @@ let questions = `[{
 			"Lapon",
             "Méditerranéen"
 		], 
-		"reponse":2
+		"reponseCorrecte":2
 	}
 ]`
 
@@ -154,8 +154,6 @@ $("#formulaire").validate({
 
     submitHandler: function () {
         quizz();
-        // $("#accordion").accordion();
-        // $("#accordion").show("slow");
         $("#erreurs").hide();
         $("#formulaire").hide();
     },
@@ -196,119 +194,78 @@ $.validator.addMethod(
     "La date de naissance doit être inférieure à la date d'aujourd'hui"
 );
 
-// // // // // // // // // // // // // // // // // // // // // // // // // // 
-
-// PREP QUIZ SELON EXEMPLE SUR CODEPEN 
 let quizz = function () {
+    $(document).ready(function () {
 
-let decompteQuestion = 0;
-let selections = [];
-let quiz = $('#accordion').accordion();
+        $("#accordion").show("slow");
+        $("#message").show("slow");
+        $("#btnSuivant").hide();
 
-displayNext();
+        let round = 0;
+        let point = 0;
 
-$('#next').on('click', function (e) {
-    e.preventDefault();
-    if (quiz.is(':animated')) {
-        return false;
-    }
-    choose();
 
-    if (isNaN(selections[decompteQuestion])) {
-        $('#warning').text(' SVP Faire une sélection !');
-    } else {
-        decompteQuestion++;
-        displayNext();
-        $('#warning').text('');
-    }
-});
+        displayOption(questions, round);
 
-function creerQuestionElement(index) {
-    let elementQuestion = $('<div>', {
-        id: 'acco'
-    });
+        function displayOption(array, round) {
+            $(".list-group-item").remove();
+            $.each(array, function () {
+                $(".card-title").text(`${round + 1}. ${array[round].question}`);
+                $(".phrase").text(`${array[round].phrase}`);
 
-    let h2 = $('<h2> Question no ' + (index + 1) + ': </h2>');
-    elementQuestion.append(h2);
+            });
 
-    let question = $('<p>').append(questions[index].question);
-    elementQuestion.append(question);
+            for (let i = 0; i < array[round].reponses.length; i++) {
+                $a = $("<a></a>");
+                $a.addClass("list-group-item");
+                $a.text(array[round].reponses[i]);
 
-    let boutonRadios = creerRadios(index);
-    elementQuestion.append(boutonRadios);
-
-    let warningText = $('<p id="warning">');
-    elementQuestion.append(warningText);
-    
-    return elementQuestion;
-}
-
-function creerRadios(index) {
-    let radioList = $('<ul>');
-    let item;
-    let input = '';
-    for (let i = 0; i < questions[index].reponses.length; i++) {
-        item = $('<li>');
-        input = '<input type="radio" name="answer" value=' + i + ' />';
-        input += questions[index].reponses[i];
-        item.append(input);
-        radioList.append(item);
-    }
-    return radioList;
-}
-
-function choose() {
-    selections[decompteQuestion] = +$('input[name="answer"]:checked').val();
-}
-
-function displayNext() {
-    quiz.fadeOut(function () {
-        $('#question').remove();
-
-        if (decompteQuestion < questions.length) {
-            let nextQuestion = creerQuestionElement(decompteQuestion);
-            quiz.append(nextQuestion).fadeIn();
-            if (!(isNaN(selections[decompteQuestion]))) {
-                $('input[value=' + selections[decompteQuestion] + ']').prop('checked', true);
-            } if (decompteQuestion === 1) {
-                $('#next').show();
+                $(".list-group").append($a);
             }
-        } else {
-            let scoreElem = displayScore();
-            quiz.append(scoreElem).fadeIn();
-            $('#next').hide();
-            $('#button-debut').show();
+        }
+
+        $(".list-group").on("click", function (e) {
+            if (e.target.nodeName == "A") {
+                $(e.target)
+                    .siblings()
+                    .removeClass("active");
+                $(e.target).addClass("active");
+                $("#btnSuivant").show();
+            }
+            e.preventDefault();
+        });
+
+        $("#btnSuivant").on("click", function (e) {
+            checkAnswer(e);
+        });
+
+        function checkAnswer(e) {
+            e.preventDefault();
+            if ($(".active").length) {
+                let optionIndex = $(".active").index();
+                // console.log(`la réponse est : ${questions[round].reponseCorrecte}, vous avez choisi: ${optionIndex}`);
+                if (round < questions.length - 1) {
+                    if (questions[round].reponseCorrecte !== optionIndex) {
+                        $("#message").text(`Mauvaise réponse, tu as ${point}/10.`);
+                        round++;
+                        displayOption(questions, round);
+                    } else {
+                        point++;
+                        $("#message").text(`Bonne response, tu as ${point}/10.`);
+                        round++;
+                        displayOption(questions, round);
+
+                    }
+                    return point;
+                    return round;
+
+                } else {
+                    $(".modal-body>p").text(`résultat: ${point}/10.`);
+                    $("#monModal").modal("show");
+                }
+            } else {
+                return false;
+            }
         }
     });
 }
-
-function displayScore() {
-    let score = $('<h3>', {
-        id: 'question'
-    });
-
-    let numCorrect = 0;
-    for (let i = 0; i < selections.length; i++) {
-        if (selections[i] === questions[i].reponse) {
-            numCorrect++;
-        }
-    }
-    let percentage = numCorrect / questions.length;
-    if (percentage >= 0.9) {
-        score.append('Incredible! You got ' + numCorrect + ' out of ' +
-            questions.length + ' questions right!');
-    } else if (percentage >= 0.7) {
-        score.append('Good job! You got ' + numCorrect + ' out of ' +
-            questions.length + ' questions right!');
-    } else if (percentage >= 0.5) {
-        score.append('You got ' + numCorrect + ' out of ' +
-            questions.length + ' questions right.');
-    } else {
-        score.append('You only got ' + numCorrect + ' out of ' +
-            questions.length + ' right. Want to try again?');
-    }
-    return score;
-}
-}
-
-// // // // // // // // // // // // // // // // // // // // // // // // // // 
