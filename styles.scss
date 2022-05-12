@@ -2,15 +2,27 @@ $primary:#59359a;
 
 @import './node_modules/bootstrap/scss/bootstrap.scss';
 
-label.error{
-    color:red;
+label.error {
+    color: red;
 }
 
-header{
-    background-color:$primary;
-    height:150px;
-    h1{
-        font-size:2rem;
-        color:#fff;
+header {
+    background-color: $primary;
+    height: 150px;
+
+    h1 {
+        font-size: 2rem;
+        color: #fff;
     }
+}
+
+#accordion {
+    display: none;
+}
+
+#message {
+    display: none;
+}
+.succes{
+    background-color:;
 }

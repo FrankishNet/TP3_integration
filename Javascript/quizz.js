@@ -1,5 +1,7 @@
 // VALIDATION FORMULAIRE //
 
+
+
 let validation = false;
 let score = 0;
 
@@ -251,7 +253,7 @@ let quizz = function () {
                         displayOption(questions, round);
                     } else {
                         point++;
-                        $("#message").text(`Bonne response, tu as ${point}/10.`);
+                        $("#message").text(`Bonne réponse, tu as ${point}/10.`);
                         round++;
                         displayOption(questions, round);
 
@@ -260,8 +262,21 @@ let quizz = function () {
                     return round;
 
                 } else {
-                    $(".modal-body>p").text(`résultat: ${point}/10.`);
-                    $("#monModal").modal("show");
+                    /* $(".modal-body>p").text(`résultat: ${point}/10.`);
+                    $("#monModal").modal("show"); */
+                    if (point > 7){
+                        $(".modal-content").addClass("alert-success");
+                        $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
+                        $("#monModal").modal("show");
+                    }else if (point >= 6){
+                        $(".modal-content").addClass("alert-warning");
+                        $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
+                        $("#monModal").modal("show");
+                    }else{
+                        $(".modal-content").addClass("alert-danger");
+                        $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
+                        $("#monModal").modal("show");
+                    }
                 }
             } else {
                 return false;
@@ -269,3 +284,16 @@ let quizz = function () {
         }
     });
 }
+/* if (point > 7){
+    $(".modal-content").addClass("alert-success");
+    $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
+    $("#monModal").modal("show");
+}else if (point >= 6){
+    $(".modal-content").addClass("alert-warning");
+    $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
+    $("#monModal").modal("show");
+}else{
+    $(".modal-content").addClass("alert-danger");
+    $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
+    $("#monModal").modal("show");
+} */
