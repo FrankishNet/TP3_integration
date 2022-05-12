@@ -265,7 +265,7 @@ let quizz = function () {
                     /* $(".modal-body>p").text(`résultat: ${point}/10.`);
                     $("#monModal").modal("show"); */
                     if (point > 7){
-                        $(".modal-content").addClass("alert-success");
+                        $(".modal-content").addClass("alert-success succes-score");
                         $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
                         $("#monModal").modal("show");
                     }else if (point >= 6){
@@ -284,16 +284,3 @@ let quizz = function () {
         }
     });
 }
-/* if (point > 7){
-    $(".modal-content").addClass("alert-success");
-    $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
-    $("#monModal").modal("show");
-}else if (point >= 6){
-    $(".modal-content").addClass("alert-warning");
-    $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
-    $("#monModal").modal("show");
-}else{
-    $(".modal-content").addClass("alert-danger");
-    $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
-    $("#monModal").modal("show");
-} */
