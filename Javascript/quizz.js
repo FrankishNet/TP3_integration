@@ -1,9 +1,8 @@
 // VALIDATION FORMULAIRE //
 
-
-
 let validation = false;
 let score = 0;
+let round = 0;
 
 let questions = `[{
 		"question":"Comment s’écrit le participe passé de : ",
@@ -200,7 +199,7 @@ let quizz = function () {
     $(document).ready(function () {
 
         $("#accordion").show("slow");
-        $("#message").show("slow");
+        // $("#message").show("slow");
         $("#btnSuivant").hide();
 
         let round = 0;
@@ -217,7 +216,7 @@ let quizz = function () {
 
             });
 
-            for (let i = 0; i < array[round].reponses.length; i++) {
+            for (let i = 0; i <= array[round].reponses.length; i++) {
                 $a = $("<a></a>");
                 $a.addClass("list-group-item");
                 $a.text(array[round].reponses[i]);
@@ -241,6 +240,8 @@ let quizz = function () {
             checkAnswer(e);
         });
 
+
+
         function checkAnswer(e) {
             e.preventDefault();
             if ($(".active").length) {
@@ -248,31 +249,33 @@ let quizz = function () {
                 // console.log(`la réponse est : ${questions[round].reponseCorrecte}, vous avez choisi: ${optionIndex}`);
                 if (round < questions.length - 1) {
                     if (questions[round].reponseCorrecte !== optionIndex) {
-                        $("#message").text(`Mauvaise réponse, tu as ${point}/10.`);
+                        // $("#message").text(`Mauvaise réponse, tu as ${point}/10.`);
                         round++;
                         displayOption(questions, round);
                     } else {
                         point++;
-                        $("#message").text(`Bonne réponse, tu as ${point}/10.`);
+                        // $("#message").text(`Bonne réponse, tu as ${point}/10.`);
                         round++;
                         displayOption(questions, round);
-
                     }
                     return point;
                     return round;
-
                 } else {
                     /* $(".modal-body>p").text(`résultat: ${point}/10.`);
                     $("#monModal").modal("show"); */
-                    if (point > 7){
+                    if (point = 10) {
+                        $(".modal-content").addClass("alert-success succes-score");
+                        $(".modal-body>p").text(`Score parfait ! Tu as : ${point}/10.`);
+                        $("#monModal").modal("show");
+                    } else if (point > 7) {
                         $(".modal-content").addClass("alert-success succes-score");
                         $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
                         $("#monModal").modal("show");
-                    }else if (point >= 6){
+                    } else if (point >= 6) {
                         $(".modal-content").addClass("alert-warning");
                         $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
                         $("#monModal").modal("show");
-                    }else{
+                    } else {
                         $(".modal-content").addClass("alert-danger");
                         $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
                         $("#monModal").modal("show");
