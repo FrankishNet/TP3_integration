@@ -16,7 +16,8 @@ let questions = `[{
 		"rendue"
 		], 
 		"reponseCorrecte":0,
-        "numero": 1
+        "numero": 1,
+        "resultat": 0
 	},
 	{
 		"question":"Quel verbe s'écrit avec un t à l'indicatif présent, à la 3e personne du singulier ?",
@@ -29,8 +30,10 @@ let questions = `[{
             "Voir"
 		], 
 		"reponseCorrecte":4,
-        "numero": 2
-	},
+        "numero": 2,
+        "resultat": 0        
+	}]`
+let autresQuestions = `[
     {
 		"question":"Avec quelle forme verbale compléter cette phrase à l'indicatif futur ?",
         "phrase":"Les beaux jours ...-ils ?",
@@ -40,7 +43,8 @@ let questions = `[{
 			"Reviendront"
 		], 
 		"reponseCorrecte":2,
-        "numero": 3
+        "numero": 3,
+        "resultat": 0
 	},
     {
 		"question":"Avec quelle forme verbale au subjonctif présent compléter cette phrase ? ",
@@ -51,7 +55,8 @@ let questions = `[{
 			"Ayons eu"
 		], 
 		"reponseCorrecte":0,
-        "numero": 4
+        "numero": 4,
+        "resultat": 0
 	},
     {
 		"question":"Parmi ces verbes, lequel n'est pas au passé simple ?",
@@ -64,7 +69,8 @@ let questions = `[{
             "elles passèrent"
 		], 
 		"reponseCorrecte":3,
-        "numero": 5
+        "numero": 5,
+        "resultat": 0
 	},
     {
 		"question":"À quel temps de l'indicatif le verbe est-il conjugué ?",
@@ -75,7 +81,8 @@ let questions = `[{
 			"passé composé"
 		], 
 		"reponseCorrecte":2,
-        "numero": 6
+        "numero": 6,
+        "resultat": 0
 	},
     {
 		"question":"Dans cette liste d’expressions, laquelle ne constitue pas un pléonasme ?",
@@ -88,7 +95,8 @@ let questions = `[{
             "Pondre un oeuf"
 		], 
 		"reponseCorrecte":3,
-        "numero": 7
+        "numero": 7,
+        "resultat": 0
 	},
     {
 		"question":"Dans cette liste de noms, un seul est féminin : lequel ?",
@@ -102,7 +110,8 @@ let questions = `[{
             "Intervalle"
 		], 
 		"reponseCorrecte":1,
-        "numero": 8
+        "numero": 8,
+        "resultat": 0
 	},
     {
 		"question":"Dans cette liste de noms, un seul est masculin : lequel ?",
@@ -116,7 +125,8 @@ let questions = `[{
             "Stalactite"
 		], 
 		"reponseCorrecte":0,
-        "numero": 9
+        "numero": 9,
+        "resultat": 0
 	},
     {
 		"question":"Tous ces adjectifs doublent leur n final au féminin, sauf un : lequel ?",
@@ -128,7 +138,9 @@ let questions = `[{
             "Méditerranéen"
 		], 
 		"reponseCorrecte":2,
-        "numero": 10
+        "numero": 10,
+        "resultat": 0
+
 	}
 ]`
 
@@ -267,16 +279,39 @@ let quizz = function () {
                 let optionIndex = $(".active").index();
                 if (round < questions.length - 1) {
                     if (questions[round].reponseCorrecte !== optionIndex) {
+                        questions[round].resultat = 0;
                         round++;
                         displayOption(questions, round);
                     } else {
+                        questions[round].resultat = 1;
                         point++;
                         round++;
                         displayOption(questions, round);
                     }
                     return point;
-                    return round;
+                    //return round;
                 } else {
+                    $('#myTable').DataTable( {
+                        data: questions,
+                        columns: [
+                            { data: 'numero' },
+                            { data: 'question' },
+                            { data: 'resultat' }
+                        ],
+                        columnDefs: [
+                            {
+                                //affiche "Bon si resultat = 1, sinon affiche Pas bon"
+                                render: function (data, type, row) {
+                                    if(data == 0) return "Pas bon";
+                                    return "Bon";
+                                },
+                                targets: 2,
+                            },
+                        ],
+                        bPaginate: false,
+                        bFilter : false,
+                        info: false
+                    } );
                     if (point > 7) {
                         $(".modal-content").addClass("alert-success succes-score");
                         $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
@@ -294,14 +329,14 @@ let quizz = function () {
                         $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
                         $("#monModal").modal("show");
                         $("#accordion").hide();
-                        $("#myTable").show();
+                        $("#myTable").show();                        
                     } else  if (point = 10) {
                         $(".modal-content").addClass("alert-success succes-score");
                         $(".modal-body>p").text(`Score parfait ! Tu as : ${point}/10.`);
                         $("#monModal").modal("show");
                         $("#accordion").hide();
                         $("#myTable").show();
-                    }
+                    }                    
                 }
             } else {
                 return false;
@@ -311,11 +346,12 @@ let quizz = function () {
 }
 
 // Data table 
-$('#myTable').DataTable( {
+/*$('#myTable').DataTable( {
     data: questions,
     columns: [
         { data: 'numero' },
-        { data: 'question' }
+        { data: 'question' },
+        { data: 'resultat' }
     ]
 } );
-
+*/
