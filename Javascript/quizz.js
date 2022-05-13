@@ -300,6 +300,7 @@ $(document).ready(function () {
         
     });
 });
+<<<<<<< HEAD
 
 function showValues() {
     let champs = $( ":input" ).serializeArray();
@@ -310,3 +311,5 @@ function showValues() {
   }
   $( "select" ).change( showValues );
   showValues();
+=======
+>>>>>>> 432579a17dcdb6a02feb8bc6f73cae27d038a4ba
