@@ -295,7 +295,7 @@ let quizz = function () {
 
 $(document).ready(function () {
     $("#button-debut").click(function () {
-        let donneesUtilisateur = $("form").serialize();
+        let donneesUtilisateur = $("form").serializeArray();
         console.log(donneesUtilisateur);
     });
 });
