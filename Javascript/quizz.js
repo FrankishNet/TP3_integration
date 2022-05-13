@@ -295,7 +295,18 @@ let quizz = function () {
 
 $(document).ready(function () {
     $("#button-debut").click(function () {
-        let donneesUtilisateur = $("form").serialize();
+        let donneesUtilisateur = $("form").serializeArray();
         console.log(donneesUtilisateur);
+        
     });
 });
+
+function showValues() {
+    let champs = $( ":input" ).serializeArray();
+    $( "#donnees" ).empty();
+    jQuery.each( champs, function( i, field ) {
+      $( "#donnees" ).append( field.value + " " + "<br>");
+    });
+  }
+  $( "select" ).change( showValues );
+  showValues();
