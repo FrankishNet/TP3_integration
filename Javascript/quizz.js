@@ -4,6 +4,9 @@ let validation = false;
 let score = 0;
 let round = 0;
 
+let vosReponses = [];
+let profile = [];
+
 let questions = `[{
 		"question":"Comment s’écrit le participe passé de : ",
         "phrase":"Ils se sont ... compte de leur  erreur",
@@ -12,7 +15,8 @@ let questions = `[{
 		"rendus", 
 		"rendue"
 		], 
-		"reponseCorrecte":0
+		"reponseCorrecte":0,
+        "numero": 1
 	},
 	{
 		"question":"Quel verbe s'écrit avec un t à l'indicatif présent, à la 3e personne du singulier ?",
@@ -24,7 +28,8 @@ let questions = `[{
             "Regarder",
             "Voir"
 		], 
-		"reponseCorrecte":4
+		"reponseCorrecte":4,
+        "numero": 2
 	},
     {
 		"question":"Avec quelle forme verbale compléter cette phrase à l'indicatif futur ?",
@@ -34,7 +39,8 @@ let questions = `[{
 			"Reviendrons", 
 			"Reviendront"
 		], 
-		"reponseCorrecte":2
+		"reponseCorrecte":2,
+        "numero": 3
 	},
     {
 		"question":"Avec quelle forme verbale au subjonctif présent compléter cette phrase ? ",
@@ -44,8 +50,10 @@ let questions = `[{
 			"Ayions", 
 			"Ayons eu"
 		], 
-		"reponseCorrecte":0
-	},{
+		"reponseCorrecte":0,
+        "numero": 4
+	},
+    {
 		"question":"Parmi ces verbes, lequel n'est pas au passé simple ?",
         "phrase":"",
 		"reponses":[
@@ -55,8 +63,10 @@ let questions = `[{
             "tu partais",
             "elles passèrent"
 		], 
-		"reponseCorrecte":3
-	},{
+		"reponseCorrecte":3,
+        "numero": 5
+	},
+    {
 		"question":"À quel temps de l'indicatif le verbe est-il conjugué ?",
         "phrase":"Il a rajeuni de dix ans.",
 		"reponses":[
@@ -64,8 +74,10 @@ let questions = `[{
 			"imparfait", 
 			"passé composé"
 		], 
-		"reponseCorrecte":2
-	},{
+		"reponseCorrecte":2,
+        "numero": 6
+	},
+    {
 		"question":"Dans cette liste d’expressions, laquelle ne constitue pas un pléonasme ?",
         "phrase":"",
 		"reponses":[
@@ -75,8 +87,10 @@ let questions = `[{
             "Célébrer un anniversaire",
             "Pondre un oeuf"
 		], 
-		"reponseCorrecte":3
-	},{
+		"reponseCorrecte":3,
+        "numero": 7
+	},
+    {
 		"question":"Dans cette liste de noms, un seul est féminin : lequel ?",
         "phrase":"",
 		"reponses":[
@@ -87,8 +101,10 @@ let questions = `[{
             "Hémisphère",
             "Intervalle"
 		], 
-		"reponseCorrecte":1
-	},{
+		"reponseCorrecte":1,
+        "numero": 8
+	},
+    {
 		"question":"Dans cette liste de noms, un seul est masculin : lequel ?",
         "phrase":"",
 		"reponses":[
@@ -99,8 +115,10 @@ let questions = `[{
             "Interview",
             "Stalactite"
 		], 
-		"reponseCorrecte":0
-	},{
+		"reponseCorrecte":0,
+        "numero": 9
+	},
+    {
 		"question":"Tous ces adjectifs doublent leur n final au féminin, sauf un : lequel ?",
         "phrase":"",
 		"reponses":[
@@ -109,11 +127,14 @@ let questions = `[{
 			"Lapon",
             "Méditerranéen"
 		], 
-		"reponseCorrecte":2
+		"reponseCorrecte":2,
+        "numero": 10
 	}
 ]`
 
 questions = JSON.parse(questions);
+
+$("#myTable").hide();
 
 $("#formulaire").validate({
 
@@ -157,6 +178,7 @@ $("#formulaire").validate({
         quizz();
         $("#erreurs").hide();
         $("#formulaire").hide();
+        $("#myTable").hide();
     },
 
     showErrors: function (errorMap, errorList) {
@@ -199,12 +221,11 @@ let quizz = function () {
     $(document).ready(function () {
 
         $("#accordion").show("slow");
-        // $("#message").show("slow");
         $("#btnSuivant").hide();
+        $("#myTable").hide();
 
         let round = 0;
         let point = 0;
-
 
         displayOption(questions, round);
 
@@ -240,45 +261,46 @@ let quizz = function () {
             checkAnswer(e);
         });
 
-
-
         function checkAnswer(e) {
             e.preventDefault();
             if ($(".active").length) {
                 let optionIndex = $(".active").index();
-                // console.log(`la réponse est : ${questions[round].reponseCorrecte}, vous avez choisi: ${optionIndex}`);
                 if (round < questions.length - 1) {
                     if (questions[round].reponseCorrecte !== optionIndex) {
-                        // $("#message").text(`Mauvaise réponse, tu as ${point}/10.`);
                         round++;
                         displayOption(questions, round);
                     } else {
                         point++;
-                        // $("#message").text(`Bonne réponse, tu as ${point}/10.`);
                         round++;
                         displayOption(questions, round);
                     }
                     return point;
                     return round;
                 } else {
-                    /* $(".modal-body>p").text(`résultat: ${point}/10.`);
-                    $("#monModal").modal("show"); */
-                    if (point = 10) {
-                        $(".modal-content").addClass("alert-success succes-score");
-                        $(".modal-body>p").text(`Score parfait ! Tu as : ${point}/10.`);
-                        $("#monModal").modal("show");
-                    } else if (point > 7) {
+                    if (point > 7) {
                         $(".modal-content").addClass("alert-success succes-score");
                         $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
                         $("#monModal").modal("show");
+                        $("#accordion").hide();
+                        $("#myTable").show();
                     } else if (point >= 6) {
                         $(".modal-content").addClass("alert-warning");
                         $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
                         $("#monModal").modal("show");
-                    } else {
+                        $("#accordion").hide();
+                        $("#myTable").show();
+                    } else if (point <= 5) {
                         $(".modal-content").addClass("alert-danger");
                         $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
                         $("#monModal").modal("show");
+                        $("#accordion").hide();
+                        $("#myTable").show();
+                    } else  if (point = 10) {
+                        $(".modal-content").addClass("alert-success succes-score");
+                        $(".modal-body>p").text(`Score parfait ! Tu as : ${point}/10.`);
+                        $("#monModal").modal("show");
+                        $("#accordion").hide();
+                        $("#myTable").show();
                     }
                 }
             } else {
@@ -287,3 +309,13 @@ let quizz = function () {
         }
     });
 }
+
+// Data table 
+$('#myTable').DataTable( {
+    data: questions,
+    columns: [
+        { data: 'numero' },
+        { data: 'question' }
+    ]
+} );
+

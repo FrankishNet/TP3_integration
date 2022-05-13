@@ -12,6 +12,7 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="./CSS/styles.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -57,7 +58,7 @@
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
           <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> 
             <h5 class="card-title">Titre de la question ici</h5>
           </button>
         </h2>
@@ -65,7 +66,7 @@
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <p class="phrase">Phrase ici</p>
+        b <p class="phrase">Phrase ici</p>
         <div class="list-group">
           <a href="#" class="list-group-item list-group-item-action active">Item 1 ici</a>
           <a href="#" class="list-group-item list-group-item-action">Item 2 ici</a>
@@ -112,6 +113,26 @@
     </div>
   </div>
 
+    <!-- Data Table -->
+    <table id="myTable" class="col-lg-12">
+      <thead>
+          <tr>
+              <th>Numéro</th>
+              <th>Question</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Row 1 Data 1</td>
+              <td>Row 1 Data 2</td>
+          </tr>
+          <tr>
+              <td>Row 2 Data 1</td>
+              <td>Row 2 Data 2</td>
+          </tr>
+      </tbody>
+  </table>
+
   <!-- Javascript -->
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
@@ -120,6 +141,7 @@
   <script src="./node_modules/popper.js/dist/popper.min.js"></script>
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./node_modules/jquery-validation/dist/jquery.validate.js"></script>
+  <script src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
   <script src="./Javascript/quizz.js"></script>
 
 </body>
