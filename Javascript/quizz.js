@@ -1,9 +1,6 @@
 // VALIDATION FORMULAIRE //
 
-
-
 let validation = false;
-let score = 0;
 
 let questions = `[{
 		"question":"Comment s’écrit le participe passé de : ",
@@ -116,6 +113,7 @@ let questions = `[{
 
 questions = JSON.parse(questions);
 
+
 $("#formulaire").validate({
 
     onfocusout: false,
@@ -196,13 +194,16 @@ $.validator.addMethod(
     "La date de naissance doit être inférieure à la date d'aujourd'hui"
 );
 
+
+
+
 let quizz = function () {
     $(document).ready(function () {
 
         $("#accordion").show("slow");
         $("#message").show("slow");
         $("#btnSuivant").hide();
-
+        $("#donnees").show("slow");
         let round = 0;
         let point = 0;
 
@@ -233,13 +234,16 @@ let quizz = function () {
                     .removeClass("active");
                 $(e.target).addClass("active");
                 $("#btnSuivant").show();
+
             }
             e.preventDefault();
         });
 
         $("#btnSuivant").on("click", function (e) {
             checkAnswer(e);
+
         });
+
 
         function checkAnswer(e) {
             e.preventDefault();
@@ -262,21 +266,23 @@ let quizz = function () {
                     return round;
 
                 } else {
-                    /* $(".modal-body>p").text(`résultat: ${point}/10.`);
-                    $("#monModal").modal("show"); */
-                    if (point > 7){
+                    if (point > 7) {
                         $(".modal-content").addClass("alert-success succes-score");
-                        $(".modal-body>p").text(`C'est un véritable succès tu as : ${point}/10.`);
+                        $(".modal-body>p").text(`Succès !!!`);
                         $("#monModal").modal("show");
-                    }else if (point >= 6){
-                        $(".modal-content").addClass("alert-warning");
-                        $(".modal-body>p").text(`C'est bon mais pas encore ça tu as : ${point}/10.`);
+                        $('.alert').alert().show().removeClass("alert-dark").addClass("alert-success").text(`C'est un véritable succès tu as : ${point}/10.`);
+                    } else if (point >= 6) {
+                        $(".modal-content").addClass("alert-warning bon-score");
+                        $(".modal-body>p").text(`Peut mieux faire`);
                         $("#monModal").modal("show");
-                    }else{
-                        $(".modal-content").addClass("alert-danger");
+                        $('.alert').alert().show().removeClass("alert-dark").addClass("alert-warning").text(`C'est bon mais peut mieux faire tu as : ${point}/10.`);
+                    } else {
+                        $(".modal-content").addClass("alert-danger echec-score");
                         $(".modal-body>p").text(`C'est un véritable échec : ${point}/10.`);
                         $("#monModal").modal("show");
+                        $('.alert').alert().show().removeClass("alert-dark").addClass("alert-danger echec-score").text(`C'est un véritable échec : ${point}/10.`);
                     }
+
                 }
             } else {
                 return false;
@@ -284,3 +290,12 @@ let quizz = function () {
         }
     });
 }
+
+/********** TEST RECUP FORMULAIRE **********/
+
+$(document).ready(function () {
+    $("#button-debut").click(function () {
+        let donneesUtilisateur = $("form").serialize();
+        console.log(donneesUtilisateur);
+    });
+});

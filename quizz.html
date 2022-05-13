@@ -28,6 +28,9 @@
   <!-- Formulaire -->
   <form id="formulaire" class="w-25 mx-auto">
     <div class="form-group">
+      <legend>Inscription</legend>
+    </div>
+    <div class="form-group">
       <label for="prenom" class="font-weight-bold">Prénom</label>
       <input type="text" name="prenom" class="form-control" id="prenom" required>
     </div>
@@ -43,8 +46,8 @@
       <label for="statut" class="font-weight-bold">Choisir votre statut</label>
       <select class="form-control" id="statut" name="statut" class="required" required>
         <option label="Séléctionner votre statut"></option>
-        <option>Étudiant</option>
-        <option>Professeur</option>
+        <option value="etudiant">Étudiant</option>
+        <option value="professeur">Professeur</option>
       </select>
     </div>
     <button type="submit" id="button-debut" class="btn btn-primary">Valider</button>
@@ -52,7 +55,7 @@
 
 
   <!-- Accordion bootstrap 4.6 -->
-  <div class="accordion w-75 mx-auto" id="accordion">
+  <div class="accordion w-75 mx-auto mt-5" id="accordion">
     <div class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
@@ -63,7 +66,7 @@
         </h2>
       </div>
     </div>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapseOne" class="collapse show rounded-bottom" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
         <p class="phrase">Phrase ici</p>
         <div class="list-group">
@@ -71,27 +74,31 @@
           <a href="#" class="list-group-item list-group-item-action">Item 2 ici</a>
           <a href="#" class="list-group-item list-group-item-action">Item 3 ici</a>
         </div>
-        <a href="#" class="btn btn-primary mt-3" id="btnSuivant">Question suivante</a>
+        <a href="#" class="btn btn-primary mt-3" id="btnSuivant">Suivant</a>
       </div>
     </div>
   </div>
   </div>
-  <div class="row mt-3">
+  <div class="row mt-3 mx-0">
     <div class="col-12">
-      <div class="alert alert-dark" role="alert" id="message">
-        
+      <!-- Alerte bootstrap 4.6 -->
+      <div class="alert alert-dark w-75 mx-auto" role="alert" id="message">
+
         <!-- MESSAGE ICI -->
 
         <!-- PROGRESS BAR -->
+
         <div class="progress">
-          <div id="pb" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+          <div id="pb" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
         </div>
+        
+
 
       </div>
     </div>
   </div>
   </div>
-
   <!-- Modal bootstrap 4.6 -->
   <div class="modal fade" tabindex="-1" role="dialog" id="monModal">
     <div class="modal-dialog" role="document">
@@ -112,6 +119,16 @@
     </div>
   </div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div id="donnees" class="col-lg-4">
+      Infos données
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"></div>
+  </div>
+</div>
+
   <!-- Javascript -->
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
@@ -123,4 +140,5 @@
   <script src="./Javascript/quizz.js"></script>
 
 </body>
+
 </html>
